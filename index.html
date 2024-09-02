@@ -11,6 +11,8 @@
         max-width: 800px;
         margin: 0 auto;
         padding: 20px;
+        height: 100%;
+        overflow-y: hidden;
       }
       h1 {
         color: #3c5aa6;
@@ -1253,7 +1255,7 @@
           (sum, val) => sum + Math.abs(val),
           0
         );
-        return total / Object.keys(diff).length;
+        return total / Object.keys(d2).length;
       }
 
       function anagramCheck(word, wordList) {
