@@ -34,8 +34,13 @@
   </head>
   <body>
     <h1>Pokémon Anagram Checker</h1>
-    <input type="text" id="scrambledWord" placeholder="Enter scrambled word" />
-    <button onclick="checkAnagram()">Check</button>
+    <input
+      type="text"
+      id="scrambledWord"
+      placeholder="Enter scrambled word"
+      onkeydown="checkAnagram()"
+    />
+
     <div class="toggle-container">
       <input
         type="checkbox"
