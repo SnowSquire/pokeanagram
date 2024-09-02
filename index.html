@@ -19,6 +19,7 @@
       button {
         font-size: 16px;
         padding: 5px 10px;
+        margin-right: 10px;
       }
       #results {
         margin-top: 20px;
@@ -26,12 +27,23 @@
       .result-item {
         margin-bottom: 5px;
       }
+      .toggle-container {
+        margin-top: 10px;
+      }
     </style>
   </head>
   <body>
     <h1>Pokémon Anagram Checker</h1>
     <input type="text" id="scrambledWord" placeholder="Enter scrambled word" />
     <button onclick="checkAnagram()">Check</button>
+    <div class="toggle-container">
+      <input
+        type="checkbox"
+        id="toggleLastResults"
+        onchange="toggleResults()"
+      />
+      <label for="toggleLastResults">Show last 10 results</label>
+    </div>
     <div id="results"></div>
 
     <script>
@@ -1248,12 +1260,22 @@
           .sort((a, b) => a.score - b.score);
       }
 
+      let lastResults = [];
+
       function checkAnagram() {
         const scrambledWord = document.getElementById("scrambledWord").value;
-        const results = anagramCheck(scrambledWord, pokemonNames);
+        lastResults = anagramCheck(scrambledWord, pokemonNames);
+        displayResults();
+      }
+
+      function displayResults() {
+        const showLastResults =
+          document.getElementById("toggleLastResults").checked;
+        const resultsToShow = showLastResults
+          ? lastResults.slice(-10).reverse()
+          : lastResults.slice(0, 10);
         const resultsDiv = document.getElementById("results");
-        resultsDiv.innerHTML = results
-          .slice(0, 10)
+        resultsDiv.innerHTML = resultsToShow
           .map(
             (result, index) =>
               `<div class="result-item">${index + 1}. ${
@@ -1261,6 +1283,10 @@
               } @ ${result.score.toFixed(2)}</div>`
           )
           .join("");
+      }
+
+      function toggleResults() {
+        displayResults();
       }
 
       console.log(`Loaded ${pokemonNames.length} Pokémon names`);
